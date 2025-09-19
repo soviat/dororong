@@ -1,1 +1,1 @@
-// placeholder module
+console.log('[product_detail.js] init');

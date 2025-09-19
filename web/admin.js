@@ -1,1 +1,1 @@
-// placeholder module
+console.log('[admin.js] init');

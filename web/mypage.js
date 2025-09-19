@@ -1,1 +1,1 @@
-// placeholder module
+console.log('[mypage.js] init');

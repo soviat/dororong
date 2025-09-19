@@ -1,1 +1,1 @@
-// placeholder module
+console.log('[favorites.js] init');

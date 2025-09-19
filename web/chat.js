@@ -1,1 +1,1 @@
-// placeholder module
+console.log('[chat.js] init');

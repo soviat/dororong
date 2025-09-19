@@ -1,1 +1,1 @@
-// placeholder module
+console.log('[feed.js] init');

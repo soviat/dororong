@@ -1,1 +1,13 @@
-const f=(location.pathname.split("/").pop()||"index.html").toLowerCase(); await import("./auth.js"); const r={"product_detail.html":"./product_detail.js","register_product.html":"./register_product.js","chat.html":"./chat.js","feed.html":"./feed.js","favorites.html":"./favorites.js","mypage.html":"./mypage.js","keyword_settings.html":"./keyword_settings.js","admin.html":"./admin.js"}; if(r[f]) await import(r[f]);
+const filename = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+await import('./auth.js');
+const route = {
+  'product_detail.html': './product_detail.js',
+  'register_product.html': './register_product.js',
+  'chat.html': './chat.js',
+  'feed.html': './feed.js',
+  'favorites.html': './favorites.js',
+  'mypage.html': './mypage.js',
+  'keyword_settings.html': './keyword_settings.js',
+  'admin.html': './admin.js',
+};
+if (route[filename]) { await import(route[filename]); }
