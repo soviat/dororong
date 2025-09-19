@@ -1,15 +1,1 @@
-{
-  "name": "dororong-functions",
-  "private": true,
-  "type": "module",
-  "engines": {
-    "node": "20"
-  },
-  "dependencies": {
-    "csv-stringify": "^6.6.0",
-    "firebase-admin": "^13.5.0",
-    "firebase-functions": "^6.4.0",
-    "pdfkit": "^0.15.2",
-    "stripe": "^16.12.0"
-  }
-}
+{"name":"dororong-functions","type":"module","private":true,"engines":{"node":"20"},"dependencies":{"firebase-admin":"^12.5.0","firebase-functions":"^5.0.1"}}

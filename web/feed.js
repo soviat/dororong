@@ -1,67 +1,36 @@
-import { auth, db } from "./auth.js";
-import { uploadImages } from "./product_upload.js";
-import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-import { $, esc } from "./helpers.js";
+import { db } from "./auth.js";
+import {
+  collection, query, orderBy, limit, getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-export function mountFeed(){
-  const form = $("#feed-form");
-  form.addEventListener("submit", async (e)=>{
-    e.preventDefault();
-    try{
-      const user = auth.currentUser; if(!user) throw new Error("로그인이 필요합니다.");
-      const text = $("#post-text").value.trim();
-      const files = $("#post-images").files;
-      let images = [];
-      if(files && files.length){ const up = await uploadImages(files, "posts"); images = up.all; }
-      await addDoc(collection(db, "posts"), { ownerId:user.uid, text, images, createdAt: serverTimestamp() });
-      form.reset();
-    }catch(err){ alert(err.message||err); }
-  });
-
-  const out = $("#feed-list");
-  const qy = query(collection(db,"posts"), orderBy("createdAt","desc"));
-  onSnapshot(qy, (snap)=>{
-    out.innerHTML="";
-    snap.forEach(d=>{
-      const p = d.data();
-      const el = document.createElement("div"); el.className="card";
-      const imgs = (p.images||[]).map(u=>`<img class="img" src="${u}" loading="lazy" style="max-width:100%;border-radius:12px" />`).join("");
-      el.innerHTML = `<div><div class="muted">${p.ownerId}</div><p>${esc(p.text||'')}</p>${imgs}
-        <div class="flex" style="margin-top:8px">
-          <button class="btn" data-like="${d.id}">좋아요</button>
-          <input class="input" data-cmt="${d.id}" placeholder="댓글 달기" />
-          <button class="btn" data-sendc="${d.id}">댓글</button>
+function postCard(p){
+  const ts = p.createdAt?.toDate?.() ? p.createdAt.toDate() : new Date();
+  return `
+  <article class="border-b" style="border-color: var(--border-color);">
+    <div class="p-4">
+      <div class="flex items-center">
+        <div class="w-10 h-10 rounded-full bg-gray-200 mr-3"></div>
+        <div>
+          <p class="font-bold">${p.authorName || '익명'}</p>
+          <p class="text-xs" style="color: var(--text-secondary-color);">${ts.toLocaleString('ko-KR')}</p>
         </div>
-        <div id="c-${d.id}" class="grid"></div>
-      </div>`;
-      out.appendChild(el);
-    });
-  });
-
-  out.addEventListener("click", async (e)=>{
-    const b = e.target.closest("button[data-like]");
-    if(b){
-      const id = b.getAttribute("data-like");
-      await toggleLike(id);
-    }
-    const sc = e.target.closest("button[data-sendc]");
-    if(sc){
-      const id = sc.getAttribute("data-sendc");
-      const input = $(`input[data-cmt="${id}"]`);
-      const text = input.value.trim(); if(!text) return;
-      await addComment(id, text); input.value="";
-    }
-  });
+      </div>
+      <p class="mt-3 whitespace-pre-wrap">${p.text || ''}</p>
+    </div>
+    ${p.image ? `<img src="${p.image}" class="w-full h-64 object-cover">` : ''}
+    <div class="p-4 flex justify-between items-center">
+      <div class="text-sm" style="color: var(--text-secondary-color);">❤️ ${p.likes || 0} · 💬 ${p.comments || 0}</div>
+      <span>...</span>
+    </div>
+  </article>`;
 }
 
-async function toggleLike(postId){
-  const user = auth.currentUser; if(!user) throw new Error("로그인이 필요합니다.");
-  const ref = doc(db, `posts/${postId}/likes/${user.uid}`);
-  const snap = await getDoc(ref);
-  if(snap?.exists) { await deleteDoc(ref); } else { await setDoc(ref, { createdAt: serverTimestamp() }); }
+async function renderFeed(){
+  const el = document.getElementById('feed-list');
+  if(!el) return;
+  const q = query(collection(db, "posts"), orderBy("createdAt","desc"), limit(20));
+  const snap = await getDocs(q);
+  el.innerHTML = snap.docs.map(d => postCard(d.data())).join('') || `<p class="text-center text-sm" style="color:var(--text-secondary-color);">아직 게시물이 없어요.</p>`;
 }
-import { getDoc, doc as d } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-async function addComment(postId, text){
-  const user = auth.currentUser; if(!user) throw new Error("로그인이 필요합니다.");
-  await addDoc(collection(db, `posts/${postId}/comments`), { from:user.uid, text, createdAt: serverTimestamp() });
-}
+
+document.addEventListener('DOMContentLoaded', renderFeed);
