@@ -1,28 +1,108 @@
-:root{--bg:#f7f8fb;--card:#fff;--text:#111;--muted:#667085;--brand:#4f46e5}
-*{box-sizing:border-box}html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,"Noto Sans KR",Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-a{color:inherit;text-decoration:none}
-.container{max-width:1120px;margin:0 auto;padding:16px}
-.nav{position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid #eee;z-index:10}
-.nav .inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px}
-.brand{display:flex;gap:10px;align-items:center;font-weight:800}
-.brand .logo{width:28px;height:28px;border-radius:8px;background:var(--brand)}
-.nav a{padding:8px 10px;border-radius:10px}
-.nav a:hover{background:#f1f2f6}
-.btn{padding:10px 14px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;font-weight:600;cursor:pointer}
-.btn-brand{background:var(--brand);border-color:var(--brand);color:#fff}
-.card{background:var(--card);border:1px solid #eee;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.04);padding:16px}
-.grid{display:grid;gap:16px}
-.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.hero{padding:24px 0}
-.footer{padding:40px 0;color:var(--muted);font-size:.9rem}
-.badge{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;padding:6px 10px;border:1px solid #e5e7eb;border-radius:999px;background:#fff}
-.hidden{display:none !important}
-#auth-toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:#111;color:#fff;padding:10px 14px;border-radius:10px;opacity:0;transition:opacity .3s;z-index:50}
-.input{padding:10px 12px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;width:100%}
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{padding:10px;border-bottom:1px solid #eee;text-align:left}
-.img{background:#f3f4f6;border-radius:12px;display:block;width:100%;height:auto}
-.muted{color:#667085}
-.flex{display:flex;gap:8px;align-items:center}
+/*
+  도로롱 마켓 디자인 시스템 v1.0
+  ---------------------------------
+  이 파일은 사이트 전체의 디자인 테마를 제어합니다.
+  :root 안에 있는 변수들의 색상 코드만 변경하면
+  사이트 전체의 테마를 쉽게 바꿀 수 있습니다.
+*/
+
+:root {
+  /* 테마 제어판 (Theme Control Panel)
+    ---------------------------------
+    여기의 색상 코드만 수정하면 사이트 전체 테마가 변경됩니다.
+    예: --primary-color를 빨간색(#e53e3e)으로 바꾸면,
+         모든 주요 버튼과 아이콘이 빨간색으로 바뀝니다.
+  */
+
+  /* 1. 기본 색상 (Default Theme) */
+  --primary-color: #4f46e5;       /* 핵심 브랜드 색상 (인디고) */
+  --primary-hover-color: #4338ca; /* 핵심 색상 위에 마우스를 올렸을 때 */
+  --accent-color: #f59e0b;        /* 강조 색상 (주황/노랑 계열) */
+  --text-primary-color: #111827;  /* 기본 텍스트 색상 */
+  --text-secondary-color: #6b7280;/* 보조 텍스트 색상 (날짜, 설명 등) */
+  --bg-color: #f9fafb;           /* 전체 페이지 배경색 */
+  --surface-color: #ffffff;      /* 카드 등 컴포넌트의 배경색 */
+  --border-color: #e5e7eb;       /* 테두리 색상 */
+
+  /* 2. 상태 색상 */
+  --success-color: #10b981;       /* 성공 (녹색) */
+  --error-color: #ef4444;         /* 에러 (빨간색) */
+
+  /* 3. 레이아웃 및 효과 */
+  --border-radius: 0.75rem; /* 12px */
+  --box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* 기본 스타일 초기화 및 폰트 설정 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+  공통 컴포넌트 스타일
+  -------------------
+  TailwindCSS와 함께 사용하며, 재사용 가능한 핵심 컴포넌트를 정의합니다.
+*/
+
+/* 카드 스타일 */
+.card {
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--box-shadow);
+  padding: 1.5rem; /* 24px */
+}
+
+/* 버튼 스타일 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem; /* 8px 16px */
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover-color);
+}
+
+/* 하단 네비게이션 바 스타일 */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--surface-color);
+  border-top: 1px solid var(--border-color);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  text-align: center;
+  font-size: 0.75rem; /* 12px */
+  color: var(--text-secondary-color);
+  padding: 0.5rem 0;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+}
+
+.nav-item.active {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* (옵션) 보조 텍스트 유틸리티 */
+.text-secondary {
+  color: var(--text-secondary-color);
+}
