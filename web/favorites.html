@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>favorites - 도로롱 마켓</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <nav id="app-nav" class="nav"></nav>
+  <div class="container"><section class="hero"><h2>관심상품</h2><div id="fav-list" class="grid cols-3"></div></section>
+<script type="module"> import { observeFavoritesList } from "./favorites.js"; observeFavoritesList("#fav-list"); </script></div>
+  <div id="auth-toast"></div>
+  <script type="module" src="./layout.js"></script>
+  <script type="module" src="./auth.js"></script>
+</body>
+</html>

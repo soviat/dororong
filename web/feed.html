@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>feed - 도로롱 마켓</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <nav id="app-nav" class="nav"></nav>
+  <div class="container"><section class="hero grid cols-2">
+  <div class="card"><h2>피드 작성</h2>
+    <form id="feed-form">
+      <textarea id="post-text" class="input" placeholder="무슨 일이 있었나요?"></textarea>
+      <input id="post-images" type="file" multiple accept="image/*" class="input" />
+      <button class="btn btn-brand" type="submit">게시</button>
+    </form>
+  </div>
+  <div class="card"><h2>피드</h2><div id="feed-list" class="grid"></div></div>
+</section>
+<script type="module"> import { mountFeed } from "./feed.js"; mountFeed(); </script></div>
+  <div id="auth-toast"></div>
+  <script type="module" src="./layout.js"></script>
+  <script type="module" src="./auth.js"></script>
+</body>
+</html>

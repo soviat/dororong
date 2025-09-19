@@ -1,0 +1,28 @@
+:root{--bg:#f7f8fb;--card:#fff;--text:#111;--muted:#667085;--brand:#4f46e5}
+*{box-sizing:border-box}html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,"Noto Sans KR",Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+a{color:inherit;text-decoration:none}
+.container{max-width:1120px;margin:0 auto;padding:16px}
+.nav{position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid #eee;z-index:10}
+.nav .inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px}
+.brand{display:flex;gap:10px;align-items:center;font-weight:800}
+.brand .logo{width:28px;height:28px;border-radius:8px;background:var(--brand)}
+.nav a{padding:8px 10px;border-radius:10px}
+.nav a:hover{background:#f1f2f6}
+.btn{padding:10px 14px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;font-weight:600;cursor:pointer}
+.btn-brand{background:var(--brand);border-color:var(--brand);color:#fff}
+.card{background:var(--card);border:1px solid #eee;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.04);padding:16px}
+.grid{display:grid;gap:16px}
+.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.hero{padding:24px 0}
+.footer{padding:40px 0;color:var(--muted);font-size:.9rem}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;padding:6px 10px;border:1px solid #e5e7eb;border-radius:999px;background:#fff}
+.hidden{display:none !important}
+#auth-toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:#111;color:#fff;padding:10px 14px;border-radius:10px;opacity:0;transition:opacity .3s;z-index:50}
+.input{padding:10px 12px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;width:100%}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:10px;border-bottom:1px solid #eee;text-align:left}
+.img{background:#f3f4f6;border-radius:12px;display:block;width:100%;height:auto}
+.muted{color:#667085}
+.flex{display:flex;gap:8px;align-items:center}

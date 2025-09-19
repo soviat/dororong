@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>login - 도로롱 마켓</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <nav id="app-nav" class="nav"></nav>
+  <div class="container"><section class="hero grid cols-2">
+  <div class="card"><h2>로그인</h2>
+    <button class="btn btn-brand" onclick="Auth.signInWithGoogle()">Google로 계속</button>
+    <button class="btn" onclick="Auth.signInWithApple()">Apple로 계속</button>
+    <p class="muted" style="margin-top:8px">팝업 차단 시 자동 리다이렉트로 전환됩니다.</p>
+  </div>
+  <div class="card"><h3>도움말</h3><ul><li>허용 도메인 등록</li><li>Apple은 최초 1회만 이름 제공</li></ul></div>
+</section>
+<script type="module"> import "./auth.js"; Auth.handleRedirectResultOnce(); </script></div>
+  <div id="auth-toast"></div>
+  <script type="module" src="./layout.js"></script>
+  <script type="module" src="./auth.js"></script>
+</body>
+</html>
