@@ -1,0 +1,10 @@
+/* My Page */
+.page-my { padding: 2rem 1rem; }
+/* Feed */
+.page-feed { padding: 1rem; }
+/* Chat */
+.page-chat { display: flex; flex-direction: column; height: calc(100vh - 120px); }
+/* Quests */
+.page-quests { padding: 1rem; }
+/* Notifications */
+.page-notifications { padding: 1rem; }

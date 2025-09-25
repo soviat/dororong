@@ -1,6 +1,0 @@
-/* a11y.css - high contrast focus */
-:root[data-theme='dark']{ --bg:#0b0d12; --card:#121621; --text:#e7e9ee; --muted:#96a0b5; --brand:#7c8cff }
-:root[data-theme='dark'] .card{ border-color:#1f2533; box-shadow:none }
-:focus{ outline:3px solid #7c8cff; outline-offset:2px }
-.skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden }
-.skip-link:focus{ position:static; width:auto; height:auto; padding:8px 12px; background:#000; color:#fff; border-radius:8px }
