@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>register_product - 도로롱 마켓</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <nav id="app-nav" class="nav"></nav>
+  <div class="container"><section class="hero grid cols-2">
+  <div class="card"><h2>상품 등록</h2>
+    <div class="grid">
+      <input id="title" placeholder="제목" class="input" />
+      <input id="price" type="number" placeholder="가격(원)" class="input" />
+      <input id="character" placeholder="캐릭터/작품" class="input" />
+      <input id="category" placeholder="카테고리(넨도/피그마 등)" class="input" />
+      <textarea id="desc" placeholder="설명" class="input"></textarea>
+      <input id="images" type="file" multiple accept="image/*" class="input" />
+      <button id="btn-upload" class="btn btn-brand">등록</button>
+    </div>
+  </div>
+  <div class="card"><h3>가이드</h3><p>여러 장 이미지를 올릴 수 있어요. 파일명은 자동으로 안전화됩니다.</p></div>
+</section>
+<script type="module">
+  import { auth, db } from "./auth.js";
+  import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+  import { uploadImages } from "./product_upload.js";
+  import { tokenify } from "./helpers.js";
+  const $ = (s)=>document.querySelector(s);
+  document.querySelector("#btn-upload").addEventListener("click", async ()=>{
+    try{
+      const user = auth.currentUser; if(!user) throw new Error("로그인이 필요합니다.");
+      const files = $("#images").files; if(!files || !files.length) throw new Error("이미지를 선택해 주세요.");
+      const { representative, all } = await uploadImages(files);
+      const title = $("#title").value.trim(); const description = $("#desc").value.trim();
+      const character = $("#character").value.trim(); const category = $("#category").value.trim();
+      const searchTerms = Array.from(new Set([ ...tokenify(title), ...tokenify(character), ...tokenify(description).slice(0,10) ])).slice(0,30);
+      const docRef = await addDoc(collection(db,"listings"),{
+        title, price: Number($("#price").value||0), description, character, category,
+        imageUrl: representative, images: all, ownerId: user.uid,
+        createdAt: serverTimestamp(), updatedAt: serverTimestamp(), status: "active", searchTerms
+      });
+      alert("등록 완료!"); location.href = "product_detail.html?id=" + docRef.id;
+    }catch(e){ alert("실패: " + (e.code||e.name||"") + " " + (e.message||e)); console.error(e); }
+  });
+</script></div>
+  <div id="auth-toast"></div>
+  <script type="module" src="./layout.js"></script>
+  <script type="module" src="./auth.js"></script>
+</body>
+</html>

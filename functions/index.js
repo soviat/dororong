@@ -1,0 +1,1 @@
+import { onRequest, onCall } from "firebase-functions/v2/https"; export const health=onRequest({region:"asia-northeast3"},(req,res)=>res.status(200).send({ok:true,ts:Date.now()}));

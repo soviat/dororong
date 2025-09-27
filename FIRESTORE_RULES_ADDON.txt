@@ -1,0 +1,8 @@
+// Add to firestore.rules
+match /orders/{id} {
+  function isParty(){ return isSignedIn() && (request.auth.uid == resource.data.sellerId || request.auth.uid == resource.data.buyerId); }
+  allow read: if isParty() || isAdmin();
+  allow create: if isSignedIn() && request.resource.data.buyerId == request.auth.uid;
+  allow update: if false; // Only via Cloud Functions
+  allow delete: if false;
+}

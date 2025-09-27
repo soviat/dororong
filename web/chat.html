@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>chat - 도로롱 마켓</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <nav id="app-nav" class="nav"></nav>
+  <div class="container"><section class="hero"><h2>채팅</h2><div id="chat-wrap"></div></section>
+<script type="module">
+  import { ensureChatWith, mountChatUI } from "./chat.js";
+  const targetUid = new URLSearchParams(location.search).get("uid");
+  const chatId = await ensureChatWith(targetUid);
+  mountChatUI({ chatId, targetUid, wrap:"#chat-wrap" });
+</script></div>
+  <div id="auth-toast"></div>
+  <script type="module" src="./layout.js"></script>
+  <script type="module" src="./auth.js"></script>
+</body>
+</html>

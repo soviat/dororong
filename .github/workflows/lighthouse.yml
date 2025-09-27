@@ -1,0 +1,11 @@
+name: Lighthouse CI
+on:
+  push:
+    branches: [ main ]
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm i -g @lhci/cli http-server
+      - run: lhci autorun --config=./lighthouserc.json || echo "LHCI warnings"

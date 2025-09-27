@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>keyword_settings - 도로롱 마켓</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <nav id="app-nav" class="nav"></nav>
+  <div class="container"><section class="hero grid cols-2">
+  <div class="card"><h2>키워드 알림 설정</h2>
+    <input id="kw" class="input" placeholder="예: 넨도로이드, 피그마"/>
+    <button id="save" class="btn btn-brand" style="margin-top:8px">저장</button>
+  </div>
+  <div class="card"><h3>설명</h3><p>저장한 키워드가 상품 제목/캐릭터에 매칭되면 알림함에 표시됩니다.</p></div>
+</section>
+<script type="module"> import { mountAlerts } from "./alerts.js"; mountAlerts(); </script></div>
+  <div id="auth-toast"></div>
+  <script type="module" src="./layout.js"></script>
+  <script type="module" src="./auth.js"></script>
+</body>
+</html>

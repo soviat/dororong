@@ -1,0 +1,5 @@
+// Firestore rules add-on (merge into existing)
+match /orders/{orderId}/settlements/{sid} {
+  allow read: if isAdmin(); // 금융 데이터는 관리자만 열람
+  allow write: if false; // 서버만 작성 (Functions)
+}

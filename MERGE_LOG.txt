@@ -1,0 +1,8 @@
+MERGE: dororong_ultimate.zip
+MERGE: dororong_extreme.zip
+MERGE: dororong_pay_admin_pack.zip
+MERGE: dororong_safe_ops_pack.zip
+MERGE: dororong_finance_disputes_pack.zip
+MERGE: dororong_ops_plus_pack.zip
+MERGE: dororong_mega_ops_pack.zip
+MERGE: dororong_final_polish_pack.zip
